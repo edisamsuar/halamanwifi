@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pembayaran WiFi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+        }
+        .summary {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .paid {
+            color: green;
+        }
+        .unpaid {
+            color: red;
+        }
+        .total {
+            font-size: 24px; /* Ukuran font yang lebih besar untuk total uang */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="logo_wifi.png" alt="Logo WiFi" class="logo" width="150">
+
+    <h1>Halaman Pembayaran WiFi</h1>
+
+    <table id="customerTable">
+        <tr>
+            <th>No</th>
+            <th>Nama Pelanggan</th>
+            <th>Status Pembayaran</th>
+            <th>Harga</th>
+            <th>Aksi</th>
+        </tr>
+        <!-- Daftar Pelanggan -->
+        <tr>
+            <td>1</td>
+            <td>Tgk Ahyar</td>
+            <td class="status paid">Sudah Bayar</td>
+            <td>Rp15.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Tgk Arief Fazillah</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Tgk Baru 1</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Tgk Baru 2</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Tgk Bahgia</td>
+            <td class="status paid">Sudah Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Tgk Dzikri Arrahman</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td>Tgk Fauzi</td>
+            <td class="status paid">Sudah Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
+        </tr>
+        <tr>
+            <td>8</td>
+            <td>Tgk Hendra</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>9</td>
+            <td>Tgk Iqbal</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>10</td>
+            <td>Tgk Munandar</td>
+            <td class="status paid">Sudah Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
+        </tr>
+        <tr>
+            <td>11</td>
+            <td>Tgk Munazir</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp15.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>12</td>
+            <td>Tgk Raja Munandar</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+        <tr>
+            <td>13</td>
+            <td>Tgk Zawil</td>
+            <td class="status paid">Sudah Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
+        </tr>
+        <tr>
+            <td>14</td>
+            <td>Tgk Haikal</td>
+            <td class="status unpaid">Belum Bayar</td>
+            <td>Rp33.000,00</td>
+            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
+        </tr>
+    </table>
+
+    <div class="summary">
+        <h2>Ringkasan Pembayaran</h2>
+        <p id="paidCount">Jumlah Pelanggan yang Sudah Bayar: 0</p>
+        <p id="totalReceived" class="total">Total Uang yang Sudah Diterima: Rp0,00</p>
+    </div>
+
+    <script>
+        // Prices are now read directly from table cells
+
+        function updateSummary() {
+            const rows = document.querySelectorAll('#customerTable tr');
+            let paidCount = 0;
+            let totalReceived = 0;
+
+            rows.forEach((row, index) => {
+                if (index > 0) { // Skip header row
+                    const status = row.querySelector('.status').innerText;
+                    const priceText = row.cells[3].innerText;
+                    // Extract only the numeric part (remove currency symbols and separators)
+                    const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+
+                    if (status === 'Sudah Bayar') {
+                        paidCount++;
+                        totalReceived += price;
+                    }
+                }
+            });
+
+            document.getElementById('paidCount').innerText = `Jumlah Pelanggan yang Sudah Bayar: ${paidCount}`;
+            document.getElementById('totalReceived').innerText = `Total Uang yang Sudah Diterima: Rp${totalReceived.toLocaleString()},00`;
+        }
+
+        function togglePayment(button) {
+            const row = button.parentElement.parentElement;
+            const statusCell = row.querySelector('.status');
+
+            if (statusCell.innerText === 'Sudah Bayar') {
+                statusCell.innerText = 'Belum Bayar';
+                statusCell.classList.remove('paid');
+                statusCell.classList.add('unpaid');
+                button.innerText = 'Tandai Sudah Bayar';
+            } else {
+                statusCell.innerText = 'Sudah Bayar';
+                statusCell.classList.remove('unpaid');
+                statusCell.classList.add('paid');
+                button.innerText = 'Tandai Belum Bayar';
+            }
+
+            updateSummary();
+        }
+
+        // Initialize summary on page load
+        updateSummary();
+    </script>
+
+</body>
+  </html>
+                  
