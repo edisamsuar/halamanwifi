@@ -3,233 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Pembayaran WiFi</title>
+    <title>Daftar Pelanggan WiFi</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .wifi-icon {
+            font-size: 40px;
+            margin-right: 15px;
+            color: #3498db;
         }
         h1 {
             text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
+            margin-bottom: 20px;
         }
         th, td {
-            padding: 8px;
+            padding: 12px 15px;
             text-align: left;
+            border-bottom: 1px solid #ddd;
         }
         th {
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
         }
-        .logo {
-            display: block;
-            margin: 0 auto 20px;
-        }
-        .summary {
-            margin-top: 20px;
-            text-align: center;
-        }
-        .button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-        }
-        .button:hover {
-            background-color: #45a049;
+        tr:hover {
+            background-color: #f5f5f5;
         }
         .paid {
-            color: green;
+            color: #27ae60;
+            font-weight: bold;
         }
         .unpaid {
-            color: red;
-        }
-        .total {
-            font-size: 24px; /* Ukuran font yang lebih besar untuk total uang */
+            color: #e74c3c;
             font-weight: bold;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            flex-grow: 1;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .pay-button {
+            background-color: #27ae60;
+            color: white;
+        }
+        .pay-button:hover {
+            background-color: #219653;
+        }
+        .reset-button {
+            background-color: #e74c3c;
+            color: white;
+            margin-left: 10px;
+        }
+        .reset-button:hover {
+            background-color: #c0392b;
+        }
+        .summary {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .summary p {
+            margin: 5px 0;
+        }
+        .total-received {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <div class="wifi-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                    <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                </svg>
+            </div>
+            <h1>Daftar Pelanggan WiFi</h1>
+        </div>
+        
+        <div class="form-group">
+            <select id="customer">
+                <option value="">-- Pilih Pelanggan --</option>
+                <option value="Tgk Ahyar">Tgk Ahyar</option>
+                <option value="Tgk Arief Fazillah">Tgk Arief Fazillah</option>
+                <option value="Tgk Atim">Tgk Atim</option>
+                <option value="Tgk Bahgia">Tgk Bahgia</option>
+                <option value="Tgk Dhiaul">Tgk Dhiaul</option>
+                <option value="Tgk Dzikri Arrahman">Tgk Dzikri Arrahman</option>
+                <option value="Tgk Edi Samsuar">Tgk Edi Samsuar</option>
+                <option value="Tgk Fauzi">Tgk Fauzi</option>
+                <option value="Tgk Haikal">Tgk Haikal</option>
+                <option value="Tgk Hendra">Tgk Hendra</option>
+                <option value="Tgk Munazir">Tgk Munazir</option>
+                <option value="Tgk Raja Munandar">Tgk Raja Munandar</option>
+                <option value="Tgk Zawil">Tgk Zawil</option>
+            </select>
+            <button class="pay-button" onclick="markAsPaid()">Sudah Bayar</button>
+            <button class="reset-button" onclick="resetPayments()">Reset Semua</button>
+        </div>
 
-    <img src="logo_wifi.png" alt="Logo WiFi" class="logo" width="150">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Pelanggan</th>
+                    <th>Status Pembayaran</th>
+                    <th>Tagihan (Rupiah)</th>
+                </tr>
+            </thead>
+            <tbody id="customerTable">
+                <tr>
+                    <td>Tgk Ahyar</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>15,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Arief Fazillah</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Atim</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Bahgia</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Dhiaul</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Dzikri Arrahman</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Edi Samsuar</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Fauzi</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Haikal</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Hendra</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Munazir</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>15,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Raja Munandar</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+                <tr>
+                    <td>Tgk Zawil</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
+            </tbody>
+        </table>
 
-    <h1>Halaman Pembayaran WiFi</h1>
-
-    <table id="customerTable">
-        <tr>
-            <th>No</th>
-            <th>Nama Pelanggan</th>
-            <th>Status Pembayaran</th>
-            <th>Harga</th>
-            <th>Aksi</th>
-        </tr>
-        <!-- Daftar Pelanggan -->
-        <tr>
-            <td>1</td>
-            <td>Tgk Ahyar</td>
-            <td class="status paid">Sudah Bayar</td>
-            <td>Rp15.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Tgk Arief Fazillah</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Tgk Baru 1</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Tgk Baru 2</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Tgk Bahgia</td>
-            <td class="status paid">Sudah Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Tgk Dzikri Arrahman</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>Tgk Fauzi</td>
-            <td class="status paid">Sudah Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>Tgk Hendra</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>Tgk Iqbal</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>Tgk Munandar</td>
-            <td class="status paid">Sudah Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>Tgk Munazir</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp15.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>Tgk Raja Munandar</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-        <tr>
-            <td>13</td>
-            <td>Tgk Zawil</td>
-            <td class="status paid">Sudah Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Belum Bayar</button></td>
-        </tr>
-        <tr>
-            <td>14</td>
-            <td>Tgk Haikal</td>
-            <td class="status unpaid">Belum Bayar</td>
-            <td>Rp33.000,00</td>
-            <td><button class="button" onclick="togglePayment(this)">Tandai Sudah Bayar</button></td>
-        </tr>
-    </table>
-
-    <div class="summary">
-        <h2>Ringkasan Pembayaran</h2>
-        <p id="paidCount">Jumlah Pelanggan yang Sudah Bayar: 0</p>
-        <p id="totalReceived" class="total">Total Uang yang Sudah Diterima: Rp0,00</p>
+        <div class="summary">
+            <p>Total Uang Diterima: <span class="total-received" id="totalReceived">0</span> Rupiah</p>
+        </div>
     </div>
 
     <script>
-        // Prices are now read directly from table cells
+        // Load payment status from localStorage or initialize
+        let paymentStatus = JSON.parse(localStorage.getItem('paymentStatus')) || {};
+        let totalReceived = parseInt(localStorage.getItem('totalReceived')) || 0;
 
-        function updateSummary() {
+        // Initialize customer statuses on page load
+        document.addEventListener('DOMContentLoaded', function() {
             const rows = document.querySelectorAll('#customerTable tr');
-            let paidCount = 0;
-            let totalReceived = 0;
+            rows.forEach(row => {
+                const nameCell = row.cells[0].textContent;
+                const statusCell = row.cells[1];
+                
+                if (paymentStatus[nameCell] === 'paid') {
+                    statusCell.classList.remove('unpaid');
+                    statusCell.classList.add('paid');
+                    statusCell.textContent = 'Sudah Bayar';
+                }
+            });
+            
+            document.getElementById('totalReceived').textContent = totalReceived.toLocaleString();
+        });
 
-            rows.forEach((row, index) => {
-                if (index > 0) { // Skip header row
-                    const status = row.querySelector('.status').innerText;
-                    const priceText = row.cells[3].innerText;
-                    // Extract only the numeric part (remove currency symbols and separators)
-                    const price = parseInt(priceText.replace(/[^0-9]/g, ''));
+        function markAsPaid() {
+            const customer = document.getElementById('customer').value;
+            if (!customer) {
+                alert('Silakan pilih pelanggan terlebih dahulu');
+                return;
+            }
 
-                    if (status === 'Sudah Bayar') {
-                        paidCount++;
-                        totalReceived += price;
-                    }
+            const rows = document.querySelectorAll('#customerTable tr');
+            let customerFound = false;
+            
+            rows.forEach(row => {
+                const nameCell = row.cells[0].textContent;
+                const statusCell = row.cells[1];
+                const amountCell = row.cells[2].textContent.replace(/,/g, '');
+                
+                if (nameCell === customer && statusCell.classList.contains('unpaid')) {
+                    statusCell.classList.remove('unpaid');
+                    statusCell.classList.add('paid');
+                    statusCell.textContent = 'Sudah Bayar';
+                    totalReceived += parseInt(amountCell);
+                    paymentStatus[nameCell] = 'paid';
+                    localStorage.setItem('paymentStatus', JSON.stringify(paymentStatus));
+                    localStorage.setItem('totalReceived', totalReceived);
+                    customerFound = true;
                 }
             });
 
-            document.getElementById('paidCount').innerText = `Jumlah Pelanggan yang Sudah Bayar: ${paidCount}`;
-            document.getElementById('totalReceived').innerText = `Total Uang yang Sudah Diterima: Rp${totalReceived.toLocaleString()},00`;
-        }
-
-        function togglePayment(button) {
-            const row = button.parentElement.parentElement;
-            const statusCell = row.querySelector('.status');
-
-            if (statusCell.innerText === 'Sudah Bayar') {
-                statusCell.innerText = 'Belum Bayar';
-                statusCell.classList.remove('paid');
-                statusCell.classList.add('unpaid');
-                button.innerText = 'Tandai Sudah Bayar';
-            } else {
-                statusCell.innerText = 'Sudah Bayar';
-                statusCell.classList.remove('unpaid');
-                statusCell.classList.add('paid');
-                button.innerText = 'Tandai Belum Bayar';
+            if (customerFound) {
+                document.getElementById('totalReceived').textContent = totalReceived.toLocaleString();
+                document.getElementById('customer').selectedIndex = 0; // Reset dropdown
+            } else if (customer) {
+                alert('Pelanggan ini sudah membayar atau tidak ditemukan');
             }
-
-            updateSummary();
         }
 
-        // Initialize summary on page load
-        updateSummary();
+        function resetPayments() {
+            if (confirm('Apakah Anda yakin ingin mereset semua pembayaran?')) {
+                paymentStatus = {};
+                totalReceived = 0;
+                localStorage.removeItem('paymentStatus');
+                localStorage.removeItem('totalReceived');
+                
+                const rows = document.querySelectorAll('#customerTable tr');
+                rows.forEach(row => {
+                    const statusCell = row.cells[1];
+                    statusCell.classList.remove('paid');
+                    statusCell.classList.add('unpaid');
+                    statusCell.textContent = 'Belum Bayar';
+                });
+                
+                document.getElementById('totalReceived').textContent = '0';
+            }
+        }
     </script>
-
 </body>
-  </html>
-                  
+</html>
