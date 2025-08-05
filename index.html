@@ -116,6 +116,14 @@
             color: #27ae60;
             font-size: 18px;
         }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -148,6 +156,7 @@
                 <option value="Tgk Munazir">Tgk Munazir</option>
                 <option value="Tgk Raja Munandar">Tgk Raja Munandar</option>
                 <option value="Tgk Zawil">Tgk Zawil</option>
+                <option value="Tgk Ikbal Luriansyah">Tgk Ikbal Luriansyah</option>
             </select>
             <button class="pay-button" onclick="markAsPaid()">Sudah Bayar</button>
             <button class="reset-button" onclick="resetPayments()">Reset Semua</button>
@@ -227,6 +236,11 @@
                     <td class="unpaid">Belum Bayar</td>
                     <td>33,000</td>
                 </tr>
+                <tr>
+                    <td>Tgk Ikbal Luriansyah</td>
+                    <td class="unpaid">Belum Bayar</td>
+                    <td>33,000</td>
+                </tr>
             </tbody>
         </table>
 
@@ -286,6 +300,36 @@
 
             if (customerFound) {
                 document.getElementById('totalReceived').textContent = totalReceived.toLocaleString();
+                document.getElementById('customer').selectedIndex = 0; // Reset dropdown
+            } else if (customer) {
+                alert('Pelanggan ini sudah membayar sebelumnya atau tidak ditemukan');
+            }
+        }
+
+        function resetPayments() {
+            if (confirm('Apakah Anda yakin ingin mereset semua pembayaran?')) {
+                paymentStatus = {};
+                totalReceived = 0;
+                localStorage.removeItem('paymentStatus');
+                localStorage.removeItem('totalReceived');
+                
+                const rows = document.querySelectorAll('#customerTable tr');
+                rows.forEach(row => {
+                    const statusCell = row.cells[1];
+                    statusCell.classList.remove('paid');
+                    statusCell.classList.add('unpaid');
+                    statusCell.textContent = 'Belum Bayar';
+                });
+                
+                document.getElementById('totalReceived').textContent = '0';
+            }
+        }
+    </script>
+    <footer>
+        Edi Samsuar© 2025 All Right Reserved
+    </footer>
+</body>
+</html>caleString();
                 document.getElementById('customer').selectedIndex = 0; // Reset dropdown
             } else if (customer) {
                 alert('Pelanggan ini sudah membayar atau tidak ditemukan');
